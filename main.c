@@ -22,15 +22,21 @@ void	validation(char **args) {
 
 void	parser(int args, char **argv, t_all *philo)
 {
-//	*philo = (t_philos *)malloc(sizeof (t_philos));
+	int		i;
+
 	philo->philo_count = ft_atoi(argv[1]);
-	philo->time_to_die = ft_atoi(argv[2]);
-	philo->time_to_eat = ft_atoi(argv[3]);
-	philo->time_to_sleep = ft_atoi(argv[4]);
-	if (args == 6)
-		philo->philos->food_count = ft_atoi(argv[5]);
-	else
-		philo->philos->food_count = 0;
+	philo->philos = (t_philos *)malloc(sizeof(t_philos) * philo->philo_count);
+	i = -1;
+	while (++i < philo->philo_count)
+	{
+		philo->philos[i].time_to_die = ft_atoi(argv[2]);
+		philo->philos[i].time_to_eat = ft_atoi(argv[3]);
+		philo->philos[i].time_to_sleep = ft_atoi(argv[4]);
+		if (args == 6)
+			philo->philos[i].food_count = ft_atoi(argv[5]);
+		else
+			philo->philos[i].food_count = 0;
+	}
 }
 
 int main(int argc, char **argv)
@@ -43,6 +49,7 @@ int main(int argc, char **argv)
 		mutex_init(&phil);
 		init_threads(&phil);
 	}
-	printf("Wrong number of arguments\n");
+	else
+		printf("Wrong number of arguments\n");
 	return 0;
 }
